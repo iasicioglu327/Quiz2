@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model BlogMVC.Models.AdminPageView
+
+
+<div class="row clearfix">
+    <div class="col-lg-8 col-md-12 left-box">
+        @foreach (var unit in Model.blogValues)
+        {
+            <div class="card single_post">
+                <div class="body">
+                    <div class="img-post">
+                        <img class="d-block img-fluidl" src="~/pictures/@unit.ImagePath" alt="@unit.Category.CategoryName" />
+                    </div>
+                    <h3>@unit.Title</h3>
+                </div>
+                <div class="footer">
+                    <div class="actions">
+                        <a asp-controller="Home" asp-action="ContinueReadingBlog" asp-route-id="@unit.ID" class="btn btn-outline-secondary">Continue Reading</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-lg-4 col-md-12 right-box">
+        <div class="card">
+            <div class="header">
+                <h2>Categories</h2>
+            </div>
+            <div class="body widget">
+                <ul class="list-unstyled categories-clouds m-b-0">
+                    @foreach (var item in Model.categoryValues)
+                    {
+                        <a asp-route-id="@item.ID" asp-action="ShowCategoryBlogs">
+                        <li>@item.CategoryName</li></a>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

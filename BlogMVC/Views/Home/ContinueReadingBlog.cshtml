@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "ContinueReadingBlog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<Blog>
+
+
+<div class="col-lg-8 col-md-12 left-box">
+    @foreach (var unit in Model)
+    {
+        <div class="card single_post">
+            <div class="body">
+                <div class="img-post">
+                    <img class="d-block img-fluid" src="~/pictures/@unit.ImagePath" alt="First slide">
+                </div>
+                <h3>@unit.Title</h3>
+                <p>@unit.Content</p>
+            </div>
+        </div>
+    }
+</div>
+

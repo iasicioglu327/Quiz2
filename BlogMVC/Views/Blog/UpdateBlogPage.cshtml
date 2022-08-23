@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "UpdateBlogPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model BlogMVC.Models.Blog
+
+
+<h1>Update Blog Content</h1>
+<form method="post" asp-controller="Blog" asp-action="UpdateBlog" enctype="multipart/form-data">
+    <div class="modal-body">
+        <div class="form-group">
+            <input type="hidden" name="ID" class="form-control" asp-for=ID />
+            <input type="Text" name="Title" class="form-control" placeholder="Update Blog Title" />
+            <input type="Text" name="Content" class="form-control" placeholder="Update Blog Content" />
+            <select name="CategoryId" id="CategoryId" class="btn btn-info" asp-items="@ViewBag.selectList"></select>
+            <input type="file" name="image" class="form-control"/>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Update Blog</button>
+    </div>
+</form>
+

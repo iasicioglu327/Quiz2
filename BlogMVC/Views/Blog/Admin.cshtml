@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model BlogMVC.Models.AdminPageView
+
+<h1>Admin</h1>
+<div class="row clearfix">
+    <div class="col-lg-4 col-md-12 left-box">
+        <button type="button" class="btn btn-primary" onclick="$('#CategoryModal').modal('show')">Add New Category</button>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Category Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.categoryValues)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.CategoryName</td>
+                        <td>
+                            <a class="btn btn-danger" asp-route-id="@item.ID" asp-action="DeleteCategory">Delete</a>
+                            <a class="btn alert-secondary" asp-route-id="@item.ID" asp-action="UpdateCategoryPage">Update</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="modal" tabindex="-1" id="CategoryModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New Category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" asp-controller="Blog" asp-action="AddCategory">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="hidden" name="ID" class="form-control" />
+                                <input type="Text" name="CategoryName" class="form-control" placeholder="Category Name" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Category</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-12 left-box">
+        <button type="button" class="btn btn-primary" onclick="$('#BlogModal').modal('show')">Add New Blog</button>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.blogValues)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Title</td>
+                        <td>@item.Content</td>
+                        <td>@item.Category.CategoryName</td>
+                        <td><img class="img-thumbnail" src="~/pictures/@item.ImagePath" asp-append-version="true" alt="@item.ImagePath" /></td>
+                        <td>
+                            <a class="btn btn-danger" asp-route-id="@item.ID" asp-action="DeleteBlog">Delete</a><br>
+                            <a class="btn alert-secondary" asp-route-id="@item.ID" asp-action="UpdateBlogPage">Update</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="modal" tabindex="-1" id="BlogModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">New Blog</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <form method="post" asp-controller="Blog" asp-action="AddBlog" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="hidden" name="ID" class="form-control" />
+                                <input type="Text" name="Title" class="form-control" placeholder="Blog Title" />
+                                <input type="Text" name="Content" class="form-control" placeholder="Blog Content" />
+                                <select name="CategoryId" id="CategoryId" class="btn btn-info">
+                                    @foreach (var item in Model.categoryValues)
+                                    {
+                                        <option value="@item.ID">@item.CategoryName</option>
+                                    }
+                                </select>
+                                <input type="file" name="image" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Blog</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
